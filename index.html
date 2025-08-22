@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Registro y Productos Amway</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  line-height: 1.5;
+  color: #fff;
+  background-image: url(fondo\ tres.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  background-color: #004b8d;
+}
+
+a {
+  color: #00d1ff;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 15px 10px 40px;
+}
+
+header {
+  background: #013a6b;
+  padding: 12px 0;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1.1px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.3);
+}
+
+/* ===== NAV con botones ===== */
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  padding: 15px;
+  background: rgba(0, 51, 102, 0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+
+.btn-catalog {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #00bfff, #004b8d);
+  padding: 12px 22px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.6);
+  transition: all 0.3s ease;
+  border: 2px solid #00e0ff;
+}
+
+.btn-catalog:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.7);
+  background: linear-gradient(135deg, #007acc, #00d4ff);
+}
+
+.btn-icon {
+  font-size: 18px;
+}
+
+/* ===== Productos destacados y demás estilos existentes ===== */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap: 20px;
+}
+
+.product-card {
+  background: rgba(0, 102, 204, 0.3);
+  border-radius: 15px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+}
+
+.product-card h3 {
+  margin: 6px 0;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.product-card p {
+  font-size: 0.9rem;
+  color: #e0eaff;
+}
+
+.product-price {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-top: 8px;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 10px;
+  object-fit: contain;
+  background: #003366;
+  display: block;
+}
+
+#registro {
+  background: rgba(0, 51, 102, 0.85);
+  padding: 25px 18px;
+  border-radius: 15px;
+  box-shadow: 0 5px 20px rgba(0, 102, 204, 0.6);
+  max-width: 700px;
+  margin: 30px auto;
+}
+
+#registro form input,
+#registro form button {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+  font-size: 1rem;
+}
+
+#registro form button {
+  background: #00bfff;
+  color: white;
+  cursor: pointer;
+}
+
+p.info {
+  margin-top: 14px;
+  text-align: center;
+  font-size: 1rem;
+  color: #90fa73cc;
+}
+
+/* Flip cards */
+.flip-card {
+  background-color: transparent;
+  width: 280px;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s, box-shadow 0.3s, border-color 0.3s;
+  transform-style: preserve-3d;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  border: 2px solid #00e0ff;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+  border-color: #00bfff;
+  box-shadow: 0 12px 30px rgba(0,123,255,0.6);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  backface-visibility: hidden;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  background-color: white;
+  padding: 10px;
+}
+
+.flip-card-back {
+  background-color: #007BFF;
+  color: white;
+  transform: rotateY(180deg);
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.flip-card-back h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.flip-card-back p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+</style>
+</head>
+<body>
+
+<header>
+  Amway - Regístrate como cliente y Conoce Nuestros Productos
+</header>
+
+<!-- 🔹 Menú de catálogos en el NAV -->
+<nav>
+  <a href="CATALOGOS/NUTRICION.pdf" target="_blank" class="btn-catalog">
+    <span class="btn-icon">🍏</span> Catálogo Nutrición
+  </a>
+  <a href="CATALOGOS/CATALOGO HOGAR 2024.pdf" target="_blank" class="btn-catalog">
+    <span class="btn-icon">🏠</span> Catálogo Hogar
+  </a>
+  <a href="CATALOGOS/CATALOGO BELLEZA 2024.pdf" target="_blank" class="btn-catalog">
+    <span class="btn-icon">💄</span>Catálogo Belleza
+  </a>
+</nav>
+
+
+<style>
+  <style>
+  .catalogo-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; /* espacio entre imagen y botón */
+    width: 200px; /* ajusta según tus imágenes */
+  }
+
+  .catalogo-img {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .btn-catalog {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    background-color: #0077cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-size: 16px;
+    text-align: center;
+    transition: background-color 0.3s;
+  }
+
+  .btn-catalog:hover {
+    background-color: #005fa3;
+  }
+
+  .btn-icon {
+    font-size: 20px;
+  }
+</style>
+
+
+<style>
+/* Botones llamativos */
+.btn-catalog {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #00bfff, #004b8d);
+  padding: 14px 28px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 600;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.6);
+  transition: all 0.3s ease;
+  border: 2px solid #00e0ff;
+}
+
+.btn-catalog:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 123, 255, 0.7);
+  background: linear-gradient(135deg, #007acc, #00d4ff);
+}
+
+/* Iconos dentro del botón */
+.btn-icon {
+  font-size: 20px;
+}
+
+/* Opcional: fuente más elegante */
+#catalogos h2 {
+  text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+</style>
+
+
+<!-- productos destacados -->
+<div style="padding: 50px; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
+
+  <!-- Tarjeta 1 -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="solucion de envejecimiento.png" alt="Producto 1" />
+      </div>
+      <div class="flip-card-back">
+        <h3>Solución de envejecimiento saludable</h3>
+        
+        <p style="text-align: justify;">Apoya un cuerpo activo a cualquier edad.El movimiento diario y la nutrición del cuerpo son factores clave para mantenerse activo. Necesitas apoyar tus ojos, huesos, articulaciones y corazón para mantenerte activo y, a cambio, mantenerte activo es una de las mejores maneras de darle a tu cuerpo ese apoyo. </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta 2 -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="Pursue™ Limpiador desinfectante concentrado.jpg" alt="Producto 2" />
+      </div>
+      <div class="flip-card-back">
+        <h3>Pursue™ Limpiador desinfectante concentrado</h3>
+        <p style="text-align: justify;">Desinfectar para proteger. Limpia y desinfecta una variedad de superficies para mantener tu hogar saludable y feliz.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta 3 -->
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <img src="crema aristy.jpg" alt="Producto 3" />
+      </div>
+      <div class="flip-card-back">
+        <h3>Crema desmaquilladora Artistry Skin Nutrition™</h3>
+        <p style="text-align: justify;">Elimina el maquijalle rápidamente.Esta deliciosa crema se extiende suavemente sobre la piel para eliminar de forma instantánea y sencilla todo el maquillaje, incluidas fórmulas de larga duración, resistentes al agua y a las manchas.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Sección de invitación a registrarse después de productos destacados -->
+<!-- Sección de suscripción -->
+
+<section id="suscribete" style="background-color: #e6f0ff; padding: 40px 20px; text-align: center; border-radius: 15px; max-width: 700px; margin: 50px auto; box-shadow: 0 8px 20px rgba(0,0,0,0.1); color: #003366;"> <h2 style="font-size: 1.8rem; margin-bottom: 15px;"> ¡Descubre más productos exclusivos! </h2> <p style="font-size: 1rem; margin-bottom: 25px; line-height: 1.5;"> Para ver más catálogos y recibir ofertas especiales, únete como cliente llenando nuestro formulario. ¡Es rápido, fácil y totalmente gratis! </p> <a href="#formRegistro" 
+   style="display: inline-block; padding: 12px 25px; background-color: #ff4d4d; color: white; font-weight: bold; font-size: 1rem; border-radius: 8px; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.2); transition: all 0.3s ease;">
+   ¡Registrarme como cliente!
+</a>
+
+
+</div>
+
+<style>
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.flip-card {
+  background-color: transparent;
+  width: 280px;
+  height: 400px;
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s, box-shadow 0.3s, border-color 0.3s;
+  transform-style: preserve-3d;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+  border: 2px solid #00e0ff; /* borde azul brillante */
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+  border-color: #00bfff; /* intensifica el azul al pasar el mouse */
+  box-shadow: 0 12px 30px rgba(0,123,255,0.6);
+}
+
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  backface-visibility: hidden;
+}
+
+.flip-card-front img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 15px;
+  background-color: white;
+  padding: 10px;
+}
+
+.flip-card-back {
+  background-color: #007BFF;
+  color: white;
+  transform: rotateY(180deg);
+  padding: 25px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  border-radius: 15px;
+}
+
+.flip-card-back h3 {
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.flip-card-back p {
+  font-size: 14px;
+  line-height: 1.5;
+}
+</style>
+
+
+<!-- Beneficios -->
+<section id="beneficios">
+  <h2>Beneficios de ser Cliente</h2>
+  <div class="benefits-grid">
+    <div class="benefit-card">
+      <img src="https://img.icons8.com/ios-filled/64/000000/business.png" alt="Negocio sin riesgos" />
+      <h3>Negocio sin riesgos</h3>
+      <p>Crece tu propio negocio sin riesgos.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://img.icons8.com/ios-filled/64/000000/innovation.png" alt="Productos innovadores" />
+      <h3>Productos innovadores</h3>
+      <p>Acceso a productos innovadores y de calidad.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://img.icons8.com/ios-filled/64/000000/training.png" alt="Capacitación continua" />
+      <h3>Capacitación continua</h3>
+      <p>Apoyo y capacitación continua.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://img.icons8.com/ios-filled/64/000000/clock.png" alt="Flexibilidad" />
+      <h3>Flexibilidad</h3>
+      <p>Flexibilidad de horarios y ubicación.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://img.icons8.com/ios-filled/64/000000/conference-call.png" alt="Comunidad global" />
+      <h3>Comunidad global</h3>
+      <p>Comunidad y networking global.</p>
+    </div>
+    <div class="benefit-card">
+      <img src="https://img.icons8.com/ios-filled/64/000000/handshake.png" alt="Apoyo y Colaboración" />
+      <h3>Apoyo y colaboración</h3>
+      <p>Un equipo comprometido que te acompaña siempre.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Estilos de Beneficios */
+  #beneficios {
+    color: #000000;
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #e6f0ff;
+  }
+
+  #beneficios h2 {
+    margin-bottom: 40px;
+    font-size: 2rem;
+    color: #0033cc;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .benefit-card {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  .benefit-card img {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 15px;
+  }
+
+  .benefit-card h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #ff9800;
+  }
+
+  .benefit-card p {
+    font-size: 1rem;
+    color: #555555;
+  }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .benefits-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .benefits-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+
+<!-- Formulario de registro -->
+<section id="registro" style="scroll-margin-top: 40px;">
+ <h2 style="text-align: center;">Regístrate como cliente</h2>
+  <form id="formRegistro" action="https://formspree.io/f/mzzvnaoy" method="POST">
+    <input type="text" name="nombre" id="nombre" placeholder="Nombre" />
+    <div id="errorNombre" style="color: #ff6666; margin-bottom: 10px;"></div>
+
+    <input type="email" name="email" id="email" placeholder="Correo electrónico" />
+    <div id="errorEmail" style="color: #ff6666; margin-bottom: 10px;"></div>
+
+    <button type="submit">Enviar</button>
+  </form>
+  <p id="mensajeConfirmacion" style="display:none; color: #90fa73;">¡Gracias! Tu registro se ha enviado correctamente.</p>
+</section>
+<script>
+  const form = document.getElementById('formRegistro');
+  const mensajeConfirmacion = document.getElementById('mensajeConfirmacion');
+
+  form.addEventListener('submit', async function(event) {
+    event.preventDefault(); // ¡Esta línea es la clave! Evita que la página se recargue
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    let valido = true;
+
+    document.getElementById('errorNombre').textContent = '';
+    document.getElementById('errorEmail').textContent = '';
+
+    if (nombre.length < 3) {
+      document.getElementById('errorNombre').textContent = 'Por favor ingresa un nombre válido.';
+      valido = false;
+    }
+
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      document.getElementById('errorEmail').textContent = 'Por favor ingresa un correo válido.';
+      valido = false;
+    }
+
+    if (valido) {
+      // Envía el formulario usando fetch, sin recargar la página
+      const formspreeUrl = form.action; // Obtiene la URL de tu formulario Formspree
+      
+      try {
+        const response = await fetch(formspreeUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            nombre: nombre,
+            email: email
+          })
+        });
+
+        if (response.ok) {
+          mensajeConfirmacion.style.display = 'block'; // Muestra el mensaje de éxito
+          form.reset(); // Limpia el formulario
+        } else {
+          // Maneja cualquier error
+          alert('Hubo un problema con el envío. Por favor, inténtalo de nuevo.');
+        }
+      } catch (error) {
+        alert('Hubo un problema de conexión. Por favor, inténtalo de nuevo.');
+      }
+    }
+  });
+</script>
+
+<section id="video">
+  <h2>Conoce Más</h2>
+  <div class="video-wrapper">
+    <iframe
+      src="https://www.youtube.com/embed/a62R-KsrrXs?si=lELm45tL9l3jWmjI"
+      title="YouTube video player"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      referrerpolicy="strict-origin-when-cross-origin"
+      allowfullscreen
+      loading="lazy"
+    ></iframe>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 Amway Innovador. Todos los derechos reservados.
+  <footer>
+  
+
+</footer>
+</footer>
+
+<style>
+  /* Sección de video */
+  #video {
+    background: #e6f0ff; /* azul claro de fondo */
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  #video h2 {
+    color: #0033cc; /* azul intenso */
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+
+  .video-wrapper {
+    display: flex;
+    justify-content: center;
+  }
+
+  .video-wrapper iframe {
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: none;
+  }
+
+  /* Footer */
+  footer {
+    background-color:  #013a6b;
+    color: #ffffff;
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+  }
+
+  /* Ajuste responsivo */
+  @media (max-width: 768px) {
+    .video-wrapper iframe {
+      height: 250px;
+    }
+
+    #video h2 {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+
+
+
+</body>
+</html>
